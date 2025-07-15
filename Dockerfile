@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: © 2025 DSLab - Fondazione Bruno Kessler
+#
+# SPDX-License-Identifier: Apache-2.0
+FROM python:3.9
+
+# Repo info
+LABEL org.opencontainers.image.source=https://github.com/scc-digitalhub/digitalhub-sdk-wrapper-hera
+
+ARG ver_sdk=0.12.0
+ARG ver_python=0.12.0
+ARG ver_container=0.12.0
+ARG ver_modelserve=0.12.0
+ARG ver_dbt=0.12.0
+ARG ver_hera=0.12.0
+
+# Set working dir
+WORKDIR /app/
+
+# Install digitalhub-core
+RUN python -m pip install "digitalhub[pandas]==${ver_sdk}" \
+                          "digitalhub-runtime-hera[local]==${ver_hera}" && \
+    python -m pip install "digitalhub-runtime-python==${ver_python}" \
+                          "digitalhub-runtime-container==${ver_container}"  \
+                          "digitalhub-runtime-modelserve==${ver_modelserve}" \
+                          "digitalhub-runtime-dbt[local]==${ver_dbt}" --no-deps && \
+    python -m pip install "pydantic>=2"
+
+# Copy wrapper and set entry point
+COPY wrapper.py /app/
+COPY step.py /app/
+
+# Add nonroot group and user
+RUN useradd -r -m -u 8877 nonroot && \
+    chown -R nonroot /app
+USER 8877
+
+ENTRYPOINT ["python", "wrapper.py"]
