@@ -13,7 +13,7 @@ jobs:
       matrix:
         include:
           - dockerfile: ./Dockerfile
-            image: ghcr.io/${{ github.repository }}/wrapper-kfp
+            image: ghcr.io/${{ github.repository }}/wrapper-hera
             context: .
     permissions:
       contents: read

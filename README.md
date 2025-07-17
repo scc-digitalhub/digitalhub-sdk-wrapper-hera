@@ -1,6 +1,6 @@
-# Digitalhub wrapper KFP
+# Digitalhub wrapper hera
 
-[![license](https://img.shields.io/badge/license-Apache%202.0-blue)](https://github.com/scc-digitalhub/digitalhub-core/LICENSE) ![GitHub Release](https://img.shields.io/github/v/release/scc-digitalhub/digitalhub-sdk-wrapper-kfp)
+[![license](https://img.shields.io/badge/license-Apache%202.0-blue)](https://github.com/scc-digitalhub/digitalhub-core/LICENSE) ![GitHub Release](https://img.shields.io/github/v/release/scc-digitalhub/digitalhub-sdk-wrapper-hera)
 ![Status](https://img.shields.io/badge/status-stable-gold)
 
 Wrapper for the Digitalhub SDK to be used in Kubeflow Pipelines.
@@ -14,6 +14,7 @@ Dockerfile parameters can be set to customize the image. Parameters refers to PY
 - `ver_container`: Version of the container runtime to use.
 - `ver_modelserve`: Version of the model serving runtime to use.
 - `ver_dbt`: Version of the dbt runtime to use.
+- `ver_hera`: Version of the hera runtime to use.
 - `ver_kfp`: Version of the kfp runtime to use.
 
 ## Development
@@ -25,7 +26,7 @@ See CONTRIBUTING for contribution instructions.
 To build the container image, you need to have Docker installed. Use the following command to build the image:
 
 ```bash
-docker build -t digitalhub-wrapper-kfp .
+docker build -t digitalhub-wrapper-hera .
 ```
 
 ### Launch container
@@ -33,7 +34,7 @@ docker build -t digitalhub-wrapper-kfp .
 To run the container, use the following command:
 
 ```bash
-docker run -e PROJECT_NAME=<project-name> -e RUN_ID=<run-id> digitalhub-wrapper-kfp
+docker run -e PROJECT_NAME=<project-name> -e RUN_ID=<run-id> digitalhub-wrapper-hera
 ```
 
 Required environment variables:
