@@ -13,6 +13,7 @@ ARG ver_modelserve=0.13.0
 ARG ver_dbt=0.13.0
 ARG ver_hera=0.13.0
 ARG ver_kfp=0.13.0
+ARG ver_flower=0.13.0
 
 # Set working dir
 WORKDIR /app/
@@ -24,6 +25,7 @@ RUN python -m pip install "digitalhub==${ver_sdk}" \
                           "digitalhub-runtime-container==${ver_container}"  \
                           "digitalhub-runtime-modelserve==${ver_modelserve}" \
                           "digitalhub-runtime-kfp==${ver_kfp}" \
+                          "digitalhub-runtime-flower==${ver_flower}" \
                           "digitalhub-runtime-dbt==${ver_dbt}" --no-deps
 
 # Copy wrapper and set entry point
