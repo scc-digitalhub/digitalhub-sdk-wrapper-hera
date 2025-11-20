@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: © 2025 DSLab - Fondazione Bruno Kessler
 #
 # SPDX-License-Identifier: Apache-2.0
-FROM python:3.9
+FROM python:3.12
 
 # Repo info
 LABEL org.opencontainers.image.source=https://github.com/scc-digitalhub/digitalhub-sdk-wrapper-hera
