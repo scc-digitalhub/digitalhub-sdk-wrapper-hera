@@ -6,7 +6,7 @@ FROM python:3.12
 # Repo info
 LABEL org.opencontainers.image.source=https://github.com/scc-digitalhub/digitalhub-sdk-wrapper-hera
 
-ARG ver_sdk=0.14.6
+ARG ver_sdk=0.15.0b0
 ARG ver_python=0.14.2
 ARG ver_container=0.14.2
 ARG ver_modelserve=0.14.4
