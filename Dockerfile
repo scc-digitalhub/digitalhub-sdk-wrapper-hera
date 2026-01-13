@@ -12,7 +12,7 @@ ARG ver_container=0.15.0b1
 ARG ver_modelserve=0.15.0b1
 ARG ver_dbt=0.15.0b1
 ARG ver_hera=0.15.0b1
-ARG ver_flower=0.15.0b0
+ARG ver_flower=0.15.0b1
 
 # Set working dir
 WORKDIR /app/
