@@ -187,11 +187,10 @@ def execute_step(
         LOGGER.info("Step failed: action argument is required.")
         exit(1)
 
-    task_kind = entity_factory.get_task_kind_from_action(func.kind, action)
     run_kind = entity_factory.get_run_kind_from_action(func.kind, action)
 
     # Create or update new task
-    task = func._get_or_create_task(task_kind)
+    task = func._get_or_create_task(action)
 
     # Remove execution flags
     exec_kwargs.pop("local_execution", None)
