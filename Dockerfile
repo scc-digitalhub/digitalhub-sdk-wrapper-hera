@@ -25,7 +25,9 @@ RUN python -m pip install "digitalhub==${ver_sdk}" \
                           "digitalhub-runtime-container==${ver_container}"  \
                           "digitalhub-runtime-modelserve==${ver_modelserve}" \
                           "digitalhub-runtime-flower==${ver_flower}" \
-                          "digitalhub-runtime-dbt==${ver_dbt}" --no-deps
+                          "digitalhub-runtime-dbt==${ver_dbt}" \
+                          "digitalhub-runtime-guardrail==${ver_guardrail}" \
+                          --no-deps
 
 # Copy wrapper and set entry point
 COPY wrapper.py /app/
