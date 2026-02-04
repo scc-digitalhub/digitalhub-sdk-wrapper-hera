@@ -10,6 +10,7 @@ import os
 import time
 import typing
 
+import digitalhub_runtime_hera # noqa: F401
 from digitalhub.entities._base.entity.entity import Entity
 from digitalhub.entities._commons.enums import Relationship, State
 from digitalhub.entities.function.crud import get_function

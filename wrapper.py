@@ -4,7 +4,7 @@
 import os
 
 import digitalhub as dh
-import digitalhub_runtime_hera
+import digitalhub_runtime_hera # noqa: F401
 from digitalhub.runtimes.enums import RuntimeEnvVar
 from digitalhub.utils.logger import LOGGER
 
