@@ -13,8 +13,6 @@ ARG ver_modelserve=0.15.0b7
 ARG ver_dbt=0.15.0b4
 ARG ver_hera=0.15.0b4
 ARG ver_flower=0.15.0b3
-ARG ver_guardrail=0.15.0b2
-ARG ver_openinference=0.15.0b2
 
 # Set working dir
 WORKDIR /app/
@@ -27,8 +25,6 @@ RUN python -m pip install "digitalhub==${ver_sdk}" \
                           "digitalhub-runtime-modelserve==${ver_modelserve}" \
                           "digitalhub-runtime-flower==${ver_flower}" \
                           "digitalhub-runtime-dbt==${ver_dbt}" \
-                          "digitalhub-runtime-guardrail==${ver_guardrail}" \
-                          "digitalhub-runtime-openinference==${ver_openinference}" \
                           --no-deps
 
 # Copy wrapper and set entry point

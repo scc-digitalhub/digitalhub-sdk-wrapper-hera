@@ -17,12 +17,14 @@ from digitalhub.entities.function.crud import get_function
 from digitalhub.entities.run.crud import get_run
 from digitalhub.factory.entity import entity_factory
 from digitalhub.runtimes.enums import RuntimeEnvVar
-from digitalhub.utils.logger import LOGGER
+from digitalhub.utils.logger.logger import get_logger
+
 
 if typing.TYPE_CHECKING:
     from digitalhub.entities.function._base.entity import Function
     from digitalhub.entities.run._base.entity import Run
 
+logger = get_logger(__file__)
 
 def _write_output(key: str, value: str) -> None:
     """
@@ -45,18 +47,18 @@ def _write_output(key: str, value: str) -> None:
 
     # Check if the path is safe
     if not base == os.path.commonpath((base, os.path.abspath(path))):
-        LOGGER.info(f"Path traversal is not allowed, ignoring: {path} / {key}")
+        logger.info(f"Path traversal is not allowed, ignoring: {path} / {key}")
         return
 
     # Write the file
     path = os.path.abspath(path)
-    LOGGER.info(f"Writing artifact output: {path}, value: {value}")
+    logger.info(f"Writing artifact output: {path}, value: {value}")
     try:
         with open(path, "w") as fp:
             fp.write(value)
-        LOGGER.info(f"File written: {path}, size: {os.stat(path).st_size}")
+        logger.info(f"File written: {path}, size: {os.stat(path).st_size}")
     except Exception as e:
-        LOGGER.info(f"Failed to write output file {path}: {repr(e)}")
+        logger.info(f"Failed to write output file {path}: {repr(e)}")
 
 
 def _export_outputs(run: Run) -> None:
@@ -71,7 +73,7 @@ def _export_outputs(run: Run) -> None:
     try:
         _write_output("run_id", run.id)
     except Exception as e:
-        LOGGER.info(f"Failed writing run_id to temp file. Ignoring ({repr(e)})")
+        logger.info(f"Failed writing run_id to temp file. Ignoring ({repr(e)})")
 
     if not hasattr(run, "outputs"):
         return
@@ -88,7 +90,7 @@ def _export_outputs(run: Run) -> None:
         elif isinstance(val, dict) and "key" in val:
             results[target_output] = val["key"]
         else:
-            LOGGER.info(f"Unknown output type for {prop}: {type(val)}")
+            logger.info(f"Unknown output type for {prop}: {type(val)}")
             continue
 
     for key, value in results.items():
@@ -109,11 +111,11 @@ def _parse_exec_entity(entity_key: str) -> Function:
     Function
         The executable entity (function).
     """
-    LOGGER.info(f"Getting function {entity_key}.")
+    logger.info(f"Getting function {entity_key}.")
     try:
         return get_function(entity_key)
     except Exception as e:
-        LOGGER.info(f"Step failed: Error getting function: {str(e)}")
+        logger.info(f"Step failed: Error getting function: {str(e)}")
         exit(1)
 
 
@@ -138,22 +140,22 @@ def _wait_for_run(run: Run) -> None:
         # Wait for the run to complete
         if attempt > 0:
             delay = wait_delays[attempt]
-            LOGGER.info(
+            logger.info(
                 f"Waiting {delay} seconds before retry attempt {attempt + 1}/{max_attempts}"
             )
             time.sleep(delay)
 
         # Attempt to wait for the run
         try:
-            LOGGER.info("Waiting for run to complete")
+            logger.info("Waiting for run to complete")
             run.wait()
             break
 
         # If an exception occurs, log it and retry if attempts remain
         except Exception as e:
-            LOGGER.info(f"Attempt {attempt + 1}/{max_attempts} failed: {repr(e)}")
+            logger.info(f"Attempt {attempt + 1}/{max_attempts} failed: {repr(e)}")
             if attempt == max_attempts - 1:
-                LOGGER.info("All retry attempts exhausted")
+                logger.info("All retry attempts exhausted")
                 raise e
 
 
@@ -174,7 +176,7 @@ def execute_step(
         The keyword arguments to pass to the entity's run method.
     """
     # Run
-    LOGGER.info(f"Executing {func.ENTITY_TYPE} {func.name}:{func.id}")
+    logger.info(f"Executing {func.ENTITY_TYPE} {func.name}:{func.id}")
 
     # Get workflow run id from run env var
     workflow_run_id = os.getenv(RuntimeEnvVar.RUN_ID.value)
@@ -185,7 +187,7 @@ def execute_step(
     # Get task and run kind
     action = exec_kwargs.pop("action", None)
     if action is None:
-        LOGGER.info("Step failed: action argument is required.")
+        logger.info("Step failed: action argument is required.")
         exit(1)
 
     run_kind = entity_factory.get_run_kind_from_action(func.kind, action)
@@ -210,14 +212,14 @@ def execute_step(
 
     # Check for errors
     if run.status.state == State.ERROR.value:
-        LOGGER.info("Step failed: " + run.status.state)
+        logger.info("Step failed: " + run.status.state)
         exit(1)
 
-    LOGGER.info("Step ended with state: " + run.status.state)
+    logger.info("Step ended with state: " + run.status.state)
 
     # Write run_id and outputs
     _export_outputs(run)
-    LOGGER.info("Done.")
+    logger.info("Done.")
 
 
 def main() -> None:

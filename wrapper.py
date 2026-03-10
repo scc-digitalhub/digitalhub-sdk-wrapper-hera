@@ -6,7 +6,9 @@ import os
 import digitalhub as dh
 import digitalhub_runtime_hera # noqa: F401
 from digitalhub.runtimes.enums import RuntimeEnvVar
-from digitalhub.utils.logger import LOGGER
+from digitalhub.utils.logger.logger import get_logger
+
+logger = get_logger(__file__)
 
 
 def main():
@@ -14,16 +16,16 @@ def main():
     Main function. Get run from backend and execute function.
     """
 
-    LOGGER.info("Getting run from backend.")
+    logger.info("Getting run from backend.")
     run = dh.get_run(
         os.getenv(RuntimeEnvVar.RUN_ID.value),
         os.getenv(RuntimeEnvVar.PROJECT.value),
     )
 
-    LOGGER.info("Executing workflow.")
+    logger.info("Executing workflow.")
     run.run()
 
-    LOGGER.info("Done.")
+    logger.info("Done.")
 
 
 if __name__ == "__main__":
