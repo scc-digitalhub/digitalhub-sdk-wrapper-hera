@@ -11,7 +11,7 @@ ARG ver_python=0.16.0b1
 ARG ver_container=0.15.2
 ARG ver_modelserve=0.16.0b0
 ARG ver_dbt=0.15.1
-ARG ver_hera=0.15.1
+ARG ver_hera=0.16.0b0
 ARG ver_flower=0.16.0b0
 
 # Set working dir
