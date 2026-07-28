@@ -8,11 +8,12 @@ LABEL org.opencontainers.image.source=https://github.com/scc-digitalhub/digitalh
 
 ARG ver_sdk=0.16.0b1
 ARG ver_python=0.16.0b2
-ARG ver_container=0.16.0b0
+ARG ver_container=0.16.0b1
 ARG ver_modelserve=0.16.0b1
 ARG ver_dbt=0.16.0b1
 ARG ver_hera=0.16.0b1
 ARG ver_flower=0.16.0b1
+ARG ver_servicegraph=0.16.0b1
 
 # Set working dir
 WORKDIR /app/
@@ -25,6 +26,7 @@ RUN python -m pip install "digitalhub==${ver_sdk}" \
                           "digitalhub-runtime-modelserve==${ver_modelserve}" \
                           "digitalhub-runtime-flower==${ver_flower}" \
                           "digitalhub-runtime-dbt==${ver_dbt}" \
+                          "digitalhub-runtime-servicegraph==${ver_servicegraph}" \
                           --no-deps
 
 # Copy wrapper and set entry point
