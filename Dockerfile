@@ -15,6 +15,8 @@ ARG ver_hera=0.16.0b4
 ARG ver_flower=0.16.0b3
 ARG ver_servicegraph=0.16.0b2
 ARG ver_tvm=0.16.0b0
+ARG ver_hydra=0.16.0b2
+ARG ver_ray=0.16.0b8
 
 # Set working dir
 WORKDIR /app/
@@ -29,6 +31,8 @@ RUN python -m pip install "digitalhub==${ver_sdk}" \
                           "digitalhub-runtime-dbt==${ver_dbt}" \
                           "digitalhub-runtime-servicegraph==${ver_servicegraph}" \
                           "digitalhub-runtime-tvm==${ver_tvm}" \
+                          "digitalhub-runtime-hydra==${ver_hydra}" \
+                          "digitalhub-runtime-ray==${ver_ray}" \
                           --no-deps
 
 # Copy wrapper and set entry point
