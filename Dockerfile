@@ -16,7 +16,7 @@ ARG ver_flower=0.16.0b3
 ARG ver_servicegraph=0.16.0b3
 ARG ver_tvm=0.16.0b0
 ARG ver_hydra=0.16.0b3
-ARG ver_ray=0.16.0b8
+ARG ver_ray=0.16.0b9
 
 # Set working dir
 WORKDIR /app/
