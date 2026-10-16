@@ -7,7 +7,7 @@ FROM python:3.12
 LABEL org.opencontainers.image.source=https://github.com/scc-digitalhub/digitalhub-sdk-wrapper-hera
 
 ARG ver_sdk=0.16.0b15
-ARG ver_python=0.16.0b11
+ARG ver_python=0.16.0b12
 ARG ver_container=0.16.0b4
 ARG ver_modelserve=0.16.0b4
 ARG ver_dbt=0.16.0b7
